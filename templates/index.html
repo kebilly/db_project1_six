@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+{% endblock head %}
+
+{% block title %}逮丸玲瓏迺{% endblock title%}
+
+{% block content%}
+<style>
+    
+.section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; /* 文字顏色，可根據需要調整 */
+    font-size: 24px; /* 文字大小，可根據需要調整 */
+}
+
+#section1 {
+    background-color: #dbc534; /* 第一個區域的背景顏色 */
+}
+
+#section2 {
+    background-color: #e74c3c; /* 第二個區域的背景顏色 */
+}
+
+#section3 {
+    background-color: #b50eda; /* 第三個區域的背景顏色 */
+}
+</style>
+
+<div class="position-absolute top-50 start-50 translate-middle">
+    <div id="section1" class="section">
+    <img class="index_pic" src="{{ url_for('static', filename='./img/index.jpg') }}">
+</div>
+<div id="section2" class="section">
+    <h1 class="index_title">逮丸玲瓏迺</h1>
+</div>
+<div id="section3" class="section">    
+    <div class="btn_div">
+        <a href="{{ url_for('api.register') }}">
+            <button class="index_btn">註冊</button>
+        </a>
+        <a href="{{ url_for('api.login') }}">
+            <button class="index_btn">登入</button>
+        </a>
+    </div>
+</div>
+</div>
+{% endblock content%}

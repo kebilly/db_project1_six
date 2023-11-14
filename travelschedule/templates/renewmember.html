@@ -1,0 +1,91 @@
+{% extends "frontstage.html" %}
+{% block head %}
+{{ super() }}
+<style>
+  body {
+    background-color: #f8f9fa; /* Light gray background color */
+    color: #343a40; /* Dark text color */
+  }
+
+  .center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Set the height as needed */
+  }
+
+  .book_table2 {
+    width: 80%; /* Adjust the width of the container as needed, but not exceeding 100% */
+    max-width: 700px; /* Set a max-width to prevent it from becoming too wide */
+    background-color: #cddbf2; /* Blue color for the container */
+    padding: 20px; /* Add some padding for better visual appearance */
+    border-radius: 10px; /* Rounded corners for the container */
+    text-align: center; /* Center-align content within the container */
+    margin: 0 auto; /* Center-align the container */
+  }
+
+  .book_table2 table {
+    margin: 0 auto; /* Center-align the table */
+    text-align: left; /* Left-align text inside table cells */
+  }
+
+  /* Add more styles as needed */
+</style>
+{% endblock head %}
+
+{% block title %}會員中心{% endblock title%}
+
+{% block content%}
+
+{% with messages = get_flashed_messages() %}
+{% if messages[0] == 'updatesuccess' %}
+
+<script language="javascript">
+
+    alert('會員資料修改成功');
+  
+ </script>
+
+{% endif %}
+{% endwith %}
+
+<div class="center-container">
+  <div class="book_table2">
+    <a href="{{ url_for('index') }}"><img class="icon" src="{{ url_for('static', filename='./img/pic1.jpg') }}"></a>
+    <h1 class="book_title">會員中心</h1>
+
+    <form method="post" action={{ url_for('travelschedule.updatemember') }}>
+      <table cellpadding="10">
+        <tr>
+          <th>會員帳號</th>
+          <td><input type="text" value="{{ data.會員帳號 }}" name="account" readonly class="id_input"></td>
+        </tr>
+        <tr>
+          <th>會員密碼</th>
+          <td><input type="password" value="{{ data.會員密碼 }}" name="password"></td>
+        </tr>
+        <tr>
+          <th>姓名</th>
+          <td><input type="text" value="{{ data.會員姓名 }}" name="name"></td>
+        </tr>
+        <tr>
+          <th>手機號碼</th>
+          <td><input type="text" value="{{ data.會員電話 }}" name="phone"></td>
+        </tr>
+        <tr>
+          <th>電子郵件</th>
+          <td><input type="text" value="{{ data.會員電子信箱 }}" name="email"></td>
+        </tr>
+      </table>
+
+      <div class="btn_div">
+        <button type="submit">確定修改</button>
+        <a href="{{ url_for('travelschedule.travelschedule') }}">
+          <button type="button">回上一頁</button>
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content%}

@@ -1,0 +1,92 @@
+{% extends "backstage.html" %}
+{% block head %}
+{{ super() }}
+<style>
+   .book_table5 {
+    width: 80%; /* Adjust the width of the container as needed, but not exceeding 100% */
+    max-width: 1600px; /* Set a max-width to prevent it from becoming too wide */
+    background-color: #cddbf2; /* Blue color for the container */
+    padding: 30px; /* Add some padding for better visual appearance */
+    border-radius: 20px; /* Rounded corners for the container */
+    text-align: center; /* Center-align content within the container */
+    margin: 0 auto; /* Center-align the container */
+  }
+
+  .book_table5 table {
+    margin: 0 auto; /* Center-align the table */
+    text-align: left; /* Left-align text inside table cells */
+  }
+</style>
+{% endblock head %}
+
+{% block title %}travelplan{% endblock title%}
+
+{% block content%}
+
+
+<br/>
+<div class="container-xl">
+  <br/>
+  <form method="post" enctype=multipart/form-data action={{ url_for('manager.edit') }}>
+    <table class="book_table5 ">
+      <tr>
+        <th>活動編號</th>
+        <td><input class="form-control" type="text" value="{{ data.活動編號 }}" name="pid" readonly class="id_input"></td>
+      </tr>
+      <tr>
+        <th>活動名稱</th>
+        <td><input class="form-control" type="text" value="{{ data.活動名稱 }}" name="name" required></td>
+      </tr>
+      <tr>
+        <th>活動售價</th>
+        <td><input class="form-control" type="text" value="{{ data.活動售價 }}" name="price" required></td>
+      </tr>
+      <tr>
+        <th>活動類別</th>
+        <td>
+          <select class="form-control" name="category">
+            {% if data.類別 == 'CD' %}
+              <option value="必吃">必吃</option>
+              <option value="必玩">必玩</option>
+              <option value="必買" selected>必買</option>
+            {% elif data.類別 == 'DVD' %}
+              <option value="必吃">必吃</option>
+              <option value="必玩" selected>必玩</option>
+              <option value="必買">必買</option>
+            {% else %}
+              <option value="必吃" selected>必吃</option>
+              <option value="必玩">必玩</option>
+              <option value="必買">必買</option>
+            {% endif %}
+            
+        </select>
+      </tr>
+      <tr>
+        <th>活動城市</th>
+        <td><input class="form-control" type="text" value="{{ data.活動城市 }}" name="city" required></td>
+      </tr>
+      <tr>
+        <th>活動期間</th>
+        <td><input class="form-control" type="datetime-local" value="{{ data.活動期間 }}" name="time" required></td>
+      </tr>
+      <tr>
+        <th>活動說明</th>
+        <td>
+          <textarea class="form-control" name="description">{{ data.活動說明 }}</textarea>
+        </td>
+      </tr>
+      
+    </table>
+    <center>
+      <div class="option">
+        <button class="btn btn-outline-success" type="submit">確定修改</button> 
+        <a href="{{ url_for('manager.productManager') }}"><button class="btn btn-outline-danger">回活動管理</button></a>
+      </div>
+    </center>
+
+  </form>
+</div>
+
+
+
+{% endblock content%}

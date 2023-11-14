@@ -1,0 +1,66 @@
+{% extends "frontstage.html" %}
+{% block head %}
+{{ super() }}
+
+
+{% endblock head %}
+
+{% block title %}travelschedule{% endblock title%}
+
+{% block content%}
+<br/>
+<div class="container-xl">
+  <form method="post" action={{ url_for('travelschedule.cart') }}>
+    <table class="table table-bordered">
+      <tr>
+        <th><center>活動編號</center></th>
+        <th><center>活動名稱</center></th>
+        <th><center>活動售價</center></th>
+        <th><center>活動期間</center></th>
+        <th><center>活動城市</center></th>
+        <th width="10%"><center>數量</center></th>
+      </tr>
+      {% for book in data %}
+      <tr>
+        <td> <center>{{ book.活動編號 }}</center></td>
+        <td> <center>{{ book.活動名稱 }}</center></td>
+        <td> <center>{{ book.活動售價 }}</center></td>
+        <td> <center>{{ book.活動期間 }}</center></td>
+        <td> <center>{{ book.活動城市 }}</center></td>
+        
+        <td width="20%">
+          <center>
+            {{ book.數量 }}
+          </center>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <div class="col align-self-end">
+      
+    </div>
+    <div class="container-xxl" style="text-align: right;">
+      <div class="row">
+        <div class="col align-self-start">
+ 
+        </div>
+        <div class="col align-self-center">
+
+        </div>
+        <div class="col align-self-end">
+          <b class="ml-50">訂單總價：{{ total }} 元</b>
+        </div>
+      </div>
+    </div>
+
+    <center> 
+      <div class="option">
+        <a href="{{ url_for('travelschedule.cart') }}"><button class="btn btn-primary" type="submit" >回購物車</button></a>
+        <button class="btn btn-success" type="submit" value="order" name="order">馬上下單</button>
+    </div>
+    </center>
+
+  </form>
+</div>
+
+{% endblock content%}

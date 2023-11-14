@@ -1,0 +1,92 @@
+{% extends "frontstage.html" %}
+{% block head %}
+{{ super() }}
+<style>
+.book_table3 {
+  width: 100%; /* Adjust the width of the container as needed, but not exceeding 100% */
+  max-width: 1500px; /* Set a max-width to prevent it from becoming too wide */
+  background-color:  #e7eaef; /* Blue color for the container */
+  padding: 20px; /* Add some padding for better visual appearance */
+  border-radius: 10px; /* Rounded corners for the container */
+  text-align: center; /* Center-align content within the container */
+  margin: 0 auto; /* Center-align the container */
+}
+
+.book_table3 table {
+  margin: 0 auto; /* Center-align the table */
+  text-align: left; /* Left-align text inside table cells */
+}
+</style>
+{% endblock head %}
+
+{% block title %}購物車清單{% endblock title%}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages[0] == 'No permission' %}
+  
+<script language="javascript">
+  alert('您沒有使用者的權限喔！');
+</script>
+
+{% endif %}
+{% endwith %}
+
+<br/>
+<body>
+  <!--<div class="container-xl background-color: #74992e;">-->
+<div class="book_table3">
+  <br/>
+  <form method="post" action={{ url_for('travelschedule.cart') }}>
+    <table class="table table-bordered">
+      <tr>
+        <th><center>活動編號</center></th>
+        <th><center>活動名稱</center></th>
+        <th><center>活動種類</center></th>
+        <th><center>活動售價</center></th>
+        <th><center>活動說明</center></th>
+        <th><center>活動城市</center></th>
+        <th><center>活動期間</center></th>
+        <th><center>活動數量</center></th>
+        <th><center>活動操作</center></th>
+      </tr>
+      {% for book in data %}
+      <tr>
+        <td> <center>{{ book.活動編號 }}</center></td>
+        <td> <center>{{ book.活動名稱 }}</center></td>
+        <td> <center>{{ book.活動種類 }}</center></td>
+        <td> <center>{{ book.活動售價 }}</center></td>
+        <td> <center>{{ book.活動說明 }}</center></td>
+        <td> <center>{{ book.活動城市 }}</center></td>
+        <td> <center>{{ book.活動期間 }}</center></td>
+        
+        <td width="20%">
+          <center>
+            <input class="form-control" type="number" onkeyup="value=value.replace(/[^\d]/g,'')" min="1" value="{{ book.數量 }}" name="{{ book.活動編號 }}">
+
+          </center>
+        </td>
+        <td>
+          <center>
+            <button class="btn btn-danger" type="submit" value="{{book.活動編號}}" name="delete" onclick="return (confirm('你確定要刪除 \'{{ book.活動名稱 }}\' 嗎？'))">
+              刪除
+            </button>
+          </center>
+      </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <center>
+      <div class="option">
+        <button class="btn btn-primary" type="submit" value="edit" name="user_edit" >繼續購物</button>
+        <button class="btn btn-success" type="submit" value="edit" name="buy" >直接結帳</button>
+      </div>
+    </center>
+
+
+  </form>
+
+</div>
+</body>
+{% endblock content%}
